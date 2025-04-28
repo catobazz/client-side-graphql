@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 import { colors, mq } from "../styles";
 import { humanReadableTimeFromSeconds } from "../utils/helpers";
 import { Link } from 'react-router-dom'
-
+import type { Track } from '../__generated__/graphql'
 /**
  * Track Card component renders basic info in a card format
  * for each track populating the tracks grid homepage.
  */
-const TrackCard: React.FC<{ track: any }> = ({ track }) => {
+const TrackCard: React.FC<{ track : Omit < Track , "modules" > }> = ({ track }) => {
   const { title, thumbnail, author, length, modulesCount, id } = track;
 
   return (
