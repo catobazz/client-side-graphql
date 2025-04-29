@@ -3,10 +3,25 @@ import {Layout, QueryResult} from '../components';
 import {gql, useQuery} from '@apollo/client';
 import TrackCard from '../containers/track-card';
 
-/**
- * Tracks Page is the Catstronauts home page.
- * We display a grid of tracks fetched with useQuery with the TRACKS query
- */
+// Типы для данных, возвращаемых запросом
+interface Author {
+    id: string;
+    name: string;
+    photo: string;
+}
+
+interface Track {
+    id: string;
+    title: string;
+    thumbnail: string;
+    length: number;
+    modulesCount: number;
+    author: Author;
+}
+
+interface TracksQueryData {
+    tracksForHome: Track[];
+}
 
 /** GET_TRACKS query to retrieve all tracks */
 const GET_TRACKS = gql(`
@@ -27,7 +42,7 @@ const GET_TRACKS = gql(`
 `);
 
 const Tracks = () => {
-    const {loading, error, data} = useQuery(GET_TRACKS);
+    const {loading, error, data} = useQuery<TracksQueryData>(GET_TRACKS);
 
     return (
         <Layout grid>
@@ -39,6 +54,5 @@ const Tracks = () => {
         </Layout>
     );
 };
-
 
 export default Tracks;
